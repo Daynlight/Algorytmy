@@ -9,7 +9,9 @@ public:
 	int sumaBaseReq();
 	int sumaThreadReq();
 	size_t size();
-	int THREADSDEEPLEVEL = 2;
+	void reserve(int n);
+	void emplace_back(int n);
+	int THREADSDEEPLEVEL = 0;
 private:
 	int ThreadsLevel = 0;
 	std::vector<int> arr;

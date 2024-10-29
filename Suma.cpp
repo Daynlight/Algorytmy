@@ -18,12 +18,20 @@ int Suma::sumaBaseReqFun(int x) {
 	return arr[x] + sumaBaseReqFun(x + 1);
 }
 
-int Suma::sumaThreadReq() {
-	return sumaThreadReqFun(0, arr.size() - 1);
-}
-
 size_t Suma::size() {
 	return arr.size();
+}
+
+void Suma::reserve(int n){
+	arr.reserve(n);
+}
+
+void Suma::emplace_back(int n) {
+	arr.emplace_back(n);
+}
+
+int Suma::sumaThreadReq() {
+	return sumaThreadReqFun(0, arr.size() - 1);
 }
 
 int Suma::sumaThreadReqFun(int x, int y) {
@@ -34,11 +42,11 @@ int Suma::sumaThreadReqFun(int x, int y) {
 	int a = 0, b = 0;
 	if (ThreadsLevel < THREADSDEEPLEVEL) {
 		std::future<int> eventA = std::async(std::launch::async, [this](int a, int b) { return sumaThreadReqFun(a, b); }, x, (y - x) / 2 + x);
-		std::future<int> eventB = std::async(std::launch::async, [this](int a, int b) { return sumaThreadReqFun(a, b); }, (y - x) / 2 + x + 1, y);
+		//std::future<int> eventB = std::async(std::launch::async, [this](int a, int b) { return sumaThreadReqFun(a, b); }, (y - x) / 2 + x + 1, y);
 		
 		ThreadsLevel++;
+		b = sumaThreadReqFun((y - x) / 2 + x + 1, y);
 		a = eventA.get();
-		b = eventB.get();
 		ThreadsLevel--;
 	}
 	else {
@@ -48,4 +56,3 @@ int Suma::sumaThreadReqFun(int x, int y) {
 
 	return a + b;
 }
-
