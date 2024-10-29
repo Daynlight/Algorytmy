@@ -38,3 +38,6 @@ CMakeFiles/
 CMakeCache.txt
 output/
 .vs/
+*.dir
+*x64
+bin/
