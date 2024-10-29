@@ -19,7 +19,7 @@ int Array::sumaThreadReqFun(int x, int y) {
 	else if (y - x < 0) return 0;
 
 	int a = sumaThreadReqFun(x, (y - x) / 2);
-	int b = sumaThreadReqFun((y - x) / 2 + 1, y);
+	int b = sumaThreadReqFun((y - x) / 2 + x + 1, y);
 
 	return a + b;
 }
