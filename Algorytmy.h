@@ -1,13 +1,14 @@
 #pragma once
-#include <chrono>
 #include <vector>
 #include <thread>
+#include <future>
 
-template <typename T>
 class Array {
 public:
-	std::vector<T> arr;	
-	T sumaBaseReq();
+	std::vector<int> arr;	
+	int sumaBaseReq();
+	int sumaThreadReq();
 private:
-	T sumaBaseReqFun(int x);
+	int sumaBaseReqFun(int x);
+	int sumaThreadReqFun(int x, int y);
 };

@@ -1,17 +1,33 @@
 #include "Algorytmy.h"
+#include <iostream>
+#include <chrono>
 
 int main() {
-	int arrIn[32] = {1, 2, 3, 4 ,1 ,2 ,2,5 ,6 ,7, 4, 4, 3, 4,4,3,3,4,2,5, 4,2,3,4,5,2,1,5,32,25,32,5};
-	Array<int> arr;
+	int arrIn[5] = {1, 2, 3, 4, 5};
 	
-	arr.arr.reserve(32);
+	Array arr;
+	
+	arr.arr.reserve(10);
 	for (int& el : arrIn)
 		arr.arr.emplace_back(el);
 
-	for (int i = 0; i < 32; i++)
-		printf("%d ", arr.arr[i]);
-	
-	printf("%d", arr.sumaBaseReq());
+	printf("\n");
+	std::chrono::high_resolution_clock::time_point Start = std::chrono::high_resolution_clock::now();
+	printf("Suma: %d", arr.sumaBaseReq());
+	std::chrono::high_resolution_clock::time_point End = std::chrono::high_resolution_clock::now();
+	printf("\n");
+
+	std::chrono::microseconds duration = std::chrono::duration_cast<std::chrono::microseconds>(std::chrono::duration(End - Start));
+	std::cout << "Time: " << duration.count() << " ms\n";
+
+	printf("\n");
+	Start = std::chrono::high_resolution_clock::now();
+	printf("Suma: %d", arr.sumaThreadReq());
+	End = std::chrono::high_resolution_clock::now();
+	printf("\n");
+
+	duration = std::chrono::duration_cast<std::chrono::microseconds>(std::chrono::duration(End - Start));
+	std::cout << "Time: " << duration.count() << " ms\n";
 
 
 	return 0;
