@@ -1,25 +1,16 @@
 #include "Algorytmy.h"
 
-int Array::sumaBaseReq() {
-	return sumaBaseReqFun(0);
-}
+void Time(std::function<void()> fun) {
+	std::chrono::high_resolution_clock::time_point Start = std::chrono::high_resolution_clock::now();
 
-int Array::sumaThreadReq() {
-	return sumaThreadReqFun(0, arr.size() - 1);
-}
+	fun();
 
-int Array::sumaBaseReqFun(int x) {
-	if (x >= arr.size()) return 0;
-	return arr[x] + sumaBaseReqFun(x + 1);
-}
+	std::chrono::high_resolution_clock::time_point End = std::chrono::high_resolution_clock::now();
+	std::chrono::duration duration = std::chrono::duration(End - Start);
 
-int Array::sumaThreadReqFun(int x, int y) {
-	if (y - x == 0) return arr[x];
-	else if (y - x == 1) return arr[x] + arr[y];
-	else if (y - x < 0) return 0;
+	std::chrono::seconds sec = std::chrono::duration_cast<std::chrono::seconds>(duration);
+	std::chrono::milliseconds milisec = std::chrono::duration_cast<std::chrono::milliseconds>(duration);
+	std::chrono::nanoseconds nansec = std::chrono::duration_cast<std::chrono::nanoseconds>(duration);
 
-	int a = sumaThreadReqFun(x, (y - x) / 2 + x);
-	int b = sumaThreadReqFun((y - x) / 2 + x + 1, y);
-
-	return a + b;
+	printf("Time: %d s | %d ms | %d ns\n", sec.count(), milisec.count(), nansec.count());
 }

@@ -1,14 +1,9 @@
 #pragma once
-#include <vector>
-#include <thread>
-#include <future>
+#include <chrono>
+#include <functional>
 
-class Array {
-public:
-	std::vector<int> arr;	
-	int sumaBaseReq();
-	int sumaThreadReq();
-private:
-	int sumaBaseReqFun(int x);
-	int sumaThreadReqFun(int x, int y);
-};
+#include "Suma.h"
+
+void Time(std::function<void()> fun);
+
+void SumaAlgorytmy();
