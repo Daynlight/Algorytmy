@@ -7,7 +7,8 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "../output/")
 
 file(GLOB_RECURSE src "*.cpp" "*.h")
 
-project(Algorytmy VERSION 1.0)
+project(Algorytmy VERSION 1.0 LANGUAGES CXX)
+set(CMAKE_CXX_STANDARD 20)
 
 add_executable(Algorytmy ${src})
 

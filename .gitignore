@@ -37,3 +37,4 @@ CMakeFiles/
 *.CMakeFiles
 CMakeCache.txt
 output/
+.vs/
