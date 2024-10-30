@@ -15,6 +15,8 @@ public:
 	S sumaBaseReq();
 	template<typename S>
 	S sumaThreadReq();
+	template<typename S>
+	S sumaLine();
 private:
 	int ThreadsLevel = 0;
 	std::vector<T> arr;
@@ -67,6 +69,15 @@ template<typename T>
 template<typename S>
 S Array<T>::sumaThreadReq() {
 	return sumaThreadReqFun<S>(0, arr.size() - 1);
+}
+
+template<typename T>
+template<typename S>
+inline S Array<T>::sumaLine() {
+	S suma = 0;
+	for (int i = 0; i < arr.size(); i++)
+		suma += static_cast<S>(arr[i]);
+	return suma;
 }
 
 template<typename T>

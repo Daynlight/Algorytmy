@@ -22,12 +22,12 @@ void SumaAlgorytmy() {
 
 	printf("\n");
 
-	//Time([&arr] { printf("Suma: %d\n", arr.sumaBaseReq()); });
+	Time([&arr] { printf("Suma: %d\n", arr.sumaLine<long long>()); });
 
 	printf("\n");
 
 	for (int i = 0; i < 100; i++){
 		arr.THREADSDEEPLEVEL = i;
-		Time([&arr] { printf("Suma: %d for %d threads ", arr.sumaThreadReq<unsigned long long>(), arr.THREADSDEEPLEVEL); });
+		Time([&arr] { printf("Suma: %Id for %d threads ", arr.sumaThreadReq<long long>(), arr.THREADSDEEPLEVEL); });
 	}
 }
