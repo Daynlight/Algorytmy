@@ -2,7 +2,7 @@
 #include <chrono>
 #include <functional>
 
-#include "Suma.h"
+#include "Array.h"
 
 void Time(std::function<void()> fun);
 
