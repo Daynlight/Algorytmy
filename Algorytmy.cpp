@@ -1,16 +1,34 @@
 #include "Algorytmy.h"
 
-void Time(std::function<void()> fun) {
-	std::chrono::high_resolution_clock::time_point Start = std::chrono::high_resolution_clock::now();
+int main() {
+	SumaAlgorytmy();
 
-	fun();
+	return 0;
+}
 
-	std::chrono::high_resolution_clock::time_point End = std::chrono::high_resolution_clock::now();
-	std::chrono::duration duration = std::chrono::duration(End - Start);
+void SumaAlgorytmy() {
+	ARRAY<int> arr;
 
-	std::chrono::seconds sec = std::chrono::duration_cast<std::chrono::seconds>(duration);
-	std::chrono::milliseconds milisec = std::chrono::duration_cast<std::chrono::milliseconds>(duration);
-	std::chrono::nanoseconds nansec = std::chrono::duration_cast<std::chrono::nanoseconds>(duration);
+	int add =  705032704;
+	arr.reserve(add);
+	for (int i = 0; i < add; i++) {
+		arr.emplace_back(i%10);
+	}
 
-	printf("Time: %ld s | %ld ms | %ld ns\n", sec.count(), milisec.count(), nansec.count());
+	printf("List Size: %ld\n", arr.size());
+
+	// Clock Test 
+	printf("Clock test 100ms: ");
+	Time([] { std::this_thread::sleep_for(std::chrono::milliseconds(100)); });
+
+	printf("\n");
+
+	Time([&arr] { printf("Suma: %lld\n", arr.sumaLine<long long>()); });
+
+	printf("\n");
+
+	for (int i = 0; i < 100; i++){
+		arr.THREADSDEEPLEVEL = i;
+		Time([&arr] { printf("Suma: %lld for %d threads ", arr.sumaThreadReq<long long>(), arr.THREADSDEEPLEVEL); });
+	};
 }
