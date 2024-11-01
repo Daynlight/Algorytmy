@@ -12,5 +12,5 @@ void Time(std::function<void()> fun) {
 	std::chrono::milliseconds milisec = std::chrono::duration_cast<std::chrono::milliseconds>(duration);
 	std::chrono::nanoseconds nansec = std::chrono::duration_cast<std::chrono::nanoseconds>(duration);
 
-	printf("Time: %d s | %d ms | %d ns\n", sec.count(), milisec.count(), nansec.count());
+	printf("Time: %ld s | %ld ms | %ld ns\n", sec.count(), milisec.count(), nansec.count());
 }

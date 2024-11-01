@@ -14,3 +14,9 @@ add_executable(Algorytmy ${src})
 
 set_property(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR} PROPERTY VS_STARTUP_PROJECT Algorytmy)
 set_property(TARGET Algorytmy PROPERTY VS_DEBUGGER_WORKING_DIRECTORY "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}$<CONFIG>")
+
+set(THREADS_PREFER_PTHREAD_FLAG ON)
+find_package(Threads REQUIRED)
+target_link_libraries(Algorytmy PRIVATE Threads::Threads)
+
+set(THREADS_PREFER_PTHREAD_FLAG ON)

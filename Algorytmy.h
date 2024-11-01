@@ -1,8 +1,9 @@
 #pragma once
 #include <chrono>
+#include <future>
 #include <functional>
 
-#include "Suma.h"
+#include "Array.h"
 
 void Time(std::function<void()> fun);
 
