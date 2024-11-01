@@ -1,6 +1,6 @@
 #include "Algorytmy.h"
 
-int main() {
+int main(){
 	SumaAlgorytmy();
 
 	return 0;

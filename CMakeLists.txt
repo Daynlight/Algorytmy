@@ -4,7 +4,7 @@ set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY "bin/")
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY "output/")
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "output/")
 
-file(GLOB_RECURSE src "*.cpp" "*.h" "*.hpp")
+file(GLOB_RECURSE src "Algorytmy/*.cpp" "Algorytmy/*.h" "Algorytmy/*.hpp")
 
 project(Algorytmy VERSION 1.0 LANGUAGES CXX)
 set(CMAKE_CXX_STANDARD 20)
