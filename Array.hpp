@@ -61,8 +61,8 @@ S ARRAY<T>::sumaThreadReqFun(int x, int y) {
 
 	S a = 0, b = 0;
 	if (ThreadsLevel < THREADSDEEPLEVEL) {
-
-    THREAD<S> eventA = THREAD<S>([this,&x,&y] { return sumaThreadReqFun<S>(x, (y - x) / 2 + x); });
+    std::future<S> eventA = 
+		std::async(std::launch::async, [this,&x,&y] { return sumaThreadReqFun<S>(x, (y - x) / 2 + x); });
 
 		ThreadsLevel++;
 		b = sumaThreadReqFun<S>((y - x) / 2 + x + 1, y);

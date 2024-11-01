@@ -1,13 +1,3 @@
-template <typename T>
-  THREAD<T>::THREAD(std::function<T()> fun){
-	e = std::async(std::launch::async, [&fun]{ return fun(); });
-};
-
-template <typename T>
-	T THREAD<T>::get(){
-	return e.get();
-};
-
 void Time(std::function<void()> fun) {
 	std::chrono::high_resolution_clock::time_point Start = std::chrono::high_resolution_clock::now();
 
