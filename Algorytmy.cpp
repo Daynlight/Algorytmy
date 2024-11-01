@@ -1,4 +1,4 @@
-#include "Array.h"
+#include "Algorytmy.h"
 
 void Time(std::function<void()> fun) {
 	std::chrono::high_resolution_clock::time_point Start = std::chrono::high_resolution_clock::now();

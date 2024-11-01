@@ -30,5 +30,5 @@ void SumaAlgorytmy() {
 	for (int i = 0; i < 100; i++){
 		arr.THREADSDEEPLEVEL = i;
 		Time([&arr] { printf("Suma: %lld for %d threads ", arr.sumaThreadReq<long long>(), arr.THREADSDEEPLEVEL); });
-	}
+	};
 }
