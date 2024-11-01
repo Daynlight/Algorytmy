@@ -19,3 +19,6 @@ find_package(Threads REQUIRED)
 target_link_libraries(Algorytmy PRIVATE Threads::Threads)
 
 set(THREADS_PREFER_PTHREAD_FLAG ON)
+
+file(GLOB_RECURSE REMOVE_CMAKE "cmake-build-debug/*")
+list(REMOVE_ITEM ${src} ${REMOVE_CMAKE})
