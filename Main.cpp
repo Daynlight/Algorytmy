@@ -17,8 +17,9 @@ void SumaAlgorytmy() {
 
 	printf("List Size: %Id\n", arr.size());
 
-	// Clock Test
-	Time([] { _sleep(100); });
+	// Clock Test 
+	printf("Clock test 100ms: ");
+	Time([] { std::this_thread::sleep_for(std::chrono::milliseconds(100)); });
 
 	printf("\n");
 
