@@ -9,13 +9,13 @@ int main() {
 void SumaAlgorytmy() {
 	Array<long> arr;
 
-	int add =  5000000000;
+	int add =  705032704;
 	arr.reserve(add);
 	for (int i = 0; i < add; i++) {
 		arr.emplace_back(i%10);
 	}
 
-	printf("List Size: %Id\n", arr.size());
+	printf("List Size: %ld\n", arr.size());
 
 	// Clock Test 
 	printf("Clock test 100ms: ");
@@ -23,12 +23,12 @@ void SumaAlgorytmy() {
 
 	printf("\n");
 
-	Time([&arr] { printf("Suma: %d\n", arr.sumaLine<long long>()); });
+	Time([&arr] { printf("Suma: %lld\n", arr.sumaLine<long long>()); });
 
 	printf("\n");
 
 	for (int i = 0; i < 100; i++){
 		arr.THREADSDEEPLEVEL = i;
-		Time([&arr] { printf("Suma: %Id for %d threads ", arr.sumaThreadReq<long long>(), arr.THREADSDEEPLEVEL); });
+		Time([&arr] { printf("Suma: %lld for %d threads ", arr.sumaThreadReq<long long>(), arr.THREADSDEEPLEVEL); });
 	}
 }
