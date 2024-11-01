@@ -1,5 +1,6 @@
 #pragma once
 #include <chrono>
+#include <future>
 #include <functional>
 
 #include "Array.h"
