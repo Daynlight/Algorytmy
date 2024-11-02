@@ -12,19 +12,23 @@ public:
 	void reserve(int n);
 	void emplace_back(int n);
 	int THREADSDEEPLEVEL = 0;
+	T operator[](size_t n);
+	std::vector<T>::iterator begin();
+	std::vector<T>::iterator end();
+
+	// Sum
 	template<typename S>
-	S sumaBaseReq();
+	S HalfThreadSumReq();
 	template<typename S>
-	S sumaThreadReq();
-	template<typename S>
-	S sumaLine();
+	S LineSum();
+	
 private:
 	int ThreadsLevel = 0;
 	std::vector<T> arr;
+
+	// Sum
 	template<typename S>
-	S sumaBaseReqFun(int x);
-	template<typename S>
-	S sumaThreadReqFun(int x, int y);
+	S HalfThreadSumReqFun(int x, int y);
 };
 
 #include "Array.hpp"
