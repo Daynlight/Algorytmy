@@ -1,4 +1,4 @@
-void Time(std::function<void()> fun)
+int Time(std::function<void()> fun)
 {
 	std::chrono::high_resolution_clock::time_point Start = std::chrono::high_resolution_clock::now();
 
@@ -12,4 +12,14 @@ void Time(std::function<void()> fun)
 	std::chrono::nanoseconds nansec = std::chrono::duration_cast<std::chrono::nanoseconds>(delta);
 
 	printf("Time: %ld s | %ld ms | %ld ns\n", sec.count(), milisec.count(), nansec.count());
+
+	return delta.count();
+}
+
+template <typename T>
+T Random(T x, T y) {
+	std::random_device dev;
+	std::mt19937 rng(dev());
+	std::uniform_int_distribution<T> dist(x, y);
+	return dist(rng);
 }
