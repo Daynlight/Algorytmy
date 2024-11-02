@@ -1,10 +1,9 @@
 #include "Algorytmy.h"
 
-static bool PRINT = 0;
-
 int main(){
 	CheckClock();
-	SumaAlgorytmy(500000);
+	SumaAlgorytmy(50);
+	SortAlgorytmy(5000000);
 
 	return 0;
 }
@@ -16,33 +15,10 @@ void CheckClock(){
 }
 
 void SumaAlgorytmy(int elements) {
-	printf("################ Suma Algorytmow ################\n");
+	printf("\n################ Suma Algorytmow ################\n");
 
-	// [Init]
-	printf("****[Create Random Array]****\n");
-	ARRAY<int> arr;
-	arr.reserve(elements);
+	ARRAY<int> arr = ArrayCreate<int>(elements);
 
-	if (elements < 1000 || PRINT) {
-		Time([&arr, &elements] {
-			printf("[");
-			for (int i = 0; i < elements; i++) {
-				arr.emplace_back(Random<int>(-200, 200));
-				printf("%d, ", arr[i]);
-			};
-			printf("\b\b]\n");
-			});
-		printf("List Size: %d\n", arr.size());
-	}
-	else {
-		Time([&arr, &elements] {
-			for (int i = 0; i < elements; i++)
-				arr.emplace_back(Random<int>(-200, 200));
-			});
-		printf("List Size: %d\n", arr.size());
-	}
-
-	// [Tests]
 	printf("\n****[Base Line Sum]****\n");
 	Time([&arr] { printf("Suma: %lld\n", arr.LineSum<long long>()); });
 
@@ -55,5 +31,21 @@ void SumaAlgorytmy(int elements) {
 	int minTrhead = 0;
 	for (auto el : compareArray)
 		if (el.second < compareArray[minTrhead]) minTrhead = el.first;
-	printf("Fastest for %d Threads, time: %d ns", minTrhead, compareArray[minTrhead]);
+	printf("Fastest for %d Threads, time: %d ns\n", minTrhead, compareArray[minTrhead]);
+}
+
+void SortAlgorytmy(int elements) {
+	printf("\n################ Sort Algorytmow ################\n");
+
+	ARRAY<int> arr = ArrayCreate<int>(elements);
+
+	printf("\n****[Insertion Sort]****\n");
+	ARRAY<int> arrCopy = CopyArray(arr);
+	Time([&arrCopy] { arrCopy.InsertionSort(); printf("Array Sorted in "); });
+	if (arrCopy.size() < 1000 || PRINT) {
+		printf("[");
+		for (int el : arrCopy)
+			printf("%d, ", el);
+		printf("\b\b]\n");
+	}
 }

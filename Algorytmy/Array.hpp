@@ -56,6 +56,20 @@ inline S ARRAY<T>::LineSum() {
 }
 
 template<typename T>
+void ARRAY<T>::InsertionSort() {
+	for (int i = 1; i < arr.size(); ++i) {
+		int key = arr[i];
+		int j = i - 1;
+
+		while (j >= 0 && arr[j] > key) {
+			arr[j + 1] = arr[j];
+			j--;
+		}
+		arr[j + 1] = key;
+	}
+}
+
+template<typename T>
 template<typename S>
 S ARRAY<T>::HalfThreadSumReqFun(int x, int y) {
 	if (y - x == 0) return arr[x];

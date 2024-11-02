@@ -1,6 +1,5 @@
 #pragma once
 #include <vector>
-
 #include "Dev.h"
 
 template<typename T>
@@ -21,7 +20,8 @@ public:
 	S HalfThreadSumReq();
 	template<typename S>
 	S LineSum();
-	
+	// Sort
+	void InsertionSort();
 private:
 	int ThreadsLevel = 0;
 	std::vector<T> arr;
