@@ -1,51 +1,105 @@
 #include "Algorytmy.h"
 
-int main(){
-	CheckClock();
-	SumaAlgorytmy(50);
-	SortAlgorytmy(5000000);
-
-	return 0;
-}
-
-void CheckClock(){
+void checkClock(){
 	printf("\n****[Checking Clock Accuracy]****\n");
 	printf("Clock test 100ms: ");
-	Time([] { std::this_thread::sleep_for(std::chrono::milliseconds(100)); });
+	printTime(Time([] { std::this_thread::sleep_for(std::chrono::milliseconds(100)); }));
 }
 
-void SumaAlgorytmy(int elements) {
-	printf("\n################ Suma Algorytmow ################\n");
+void sumaAlgorytmy(size_t elements, int min, int max) {
+	printf("\n###################################################################\n");
+	printf("######################### Suma Algorytmy ##########################\n");
+	printf("###################################################################\n\n");
 
-	ARRAY<int> arr = ArrayCreate<int>(elements);
+	std::unordered_map<size_t, std::chrono::nanoseconds> compare_threads;
+	std::unordered_map<std::string, std::chrono::nanoseconds> compare_types;
+	size_t min_time = 0;
+	int suma = 0;
 
-	printf("\n****[Base Line Sum]****\n");
-	Time([&arr] { printf("Suma: %lld\n", arr.LineSum<long long>()); });
+	printf("****[ Create Random Array ]****\n");
+	Array<int> arr;
+	arr.createRandom(elements, min, max, true);
 
-	printf("\n****[Thread Half Parts Sum Req]****\n");
-	std::unordered_map<int, int> compareArray;
+	printf("\n****[ Line Sum ]****\n");
+	std::chrono::nanoseconds time = 
+		Time([&arr, &suma] { suma = arr.lineSum(0, arr.size()); });
+	printf("Sumed %d elements with resault %d in ", static_cast<int>(arr.size()), suma);
+	printTime(time);
+	compare_types["Line Sum"] = time;
+
+	printf("\n****[ Thread Half Parts Sum Req ]****\n");
+	compare_threads.clear();
+	min_time = 0;
 	for (int i = 0; i < 10; i++){
-		arr.THREADSDEEPLEVEL = i;
-		compareArray[i] = Time([&arr] { printf("Suma: %lld for %d threads \n", arr.HalfThreadSumReq<long long>(), arr.THREADSDEEPLEVEL); });
+		compare_threads[i] = Time([&arr, &suma, &i] { suma = arr.halfThreadSumReq(i); });
+		printf("Sumed %d elements with resault %d on %d threads in: ", static_cast<int>(arr.size()), suma, i);
+		printTime(compare_threads[i]);
 	};
-	int minTrhead = 0;
-	for (auto el : compareArray)
-		if (el.second < compareArray[minTrhead]) minTrhead = el.first;
-	printf("Fastest for %d Threads, time: %d ns\n", minTrhead, compareArray[minTrhead]);
+	for (auto el : compare_threads)
+		if (el.second < compare_threads[min_time]) min_time = el.first;
+	printf("  Best time for %d threads with time: ", static_cast<int>(min_time));
+	printTime(compare_threads[min_time]);
+	compare_types[std::string("Thread Half Parts Sum Req with threads " + std::to_string(min_time))] = compare_threads[min_time];
+
+	printf("\n****[ Thread Half And Line Hybrid Sum ]****\n");
+	compare_threads.clear();
+	min_time = 0;
+	for (int i = 0; i < 10; i++) {
+		compare_threads[i] = Time([&arr, &i] { arr.halfThreadAndLineSum(i); });
+		printf("Sumed %d elements with resault %d on %d threads in: ", static_cast<int>(arr.size()), suma, i);
+		printTime(compare_threads[i]);
+	};
+	for (auto el : compare_threads)
+		if (el.second < compare_threads[min_time]) min_time = el.first;
+	printf("  Best time for %d threads with time: ", static_cast<int>(min_time));
+	printTime(compare_threads[min_time]);
+	compare_types[std::string("Thread Half And Line Hybrid Sum with threads " + std::to_string(min_time))] = compare_threads[min_time];
+
+	printf("\n****[ Result ]****\n");
+	min_time = 0;
+	std::vector<std::pair<std::string, std::chrono::nanoseconds>> compare_types_vector;
+	compare_types_vector.reserve(compare_types.size());
+	for (std::pair<std::string, std::chrono::nanoseconds> el : compare_types)
+		compare_types_vector.emplace_back(el);
+	std::sort(compare_types_vector.begin(), compare_types_vector.end(), [](auto& left, auto& right) { return left.second < right.second; });
+	printf("Best time for %s with time: ", compare_types_vector[0].first.c_str());
+	printTime(compare_types_vector[0].second);
 }
 
-void SortAlgorytmy(int elements) {
-	printf("\n################ Sort Algorytmow ################\n");
+void sortAlgorytmy(size_t elements, int min, int max) {
+	printf("\n###################################################################\n");
+	printf("######################### Sort Algorytmy ##########################\n");
+	printf("###################################################################\n\n");
 
-	ARRAY<int> arr = ArrayCreate<int>(elements);
+	std::unordered_map<std::string, std::chrono::nanoseconds> compare_types;
+	int min_time = 0;
 
-	printf("\n****[Insertion Sort]****\n");
-	ARRAY<int> arrCopy = CopyArray(arr);
-	Time([&arrCopy] { arrCopy.InsertionSort(); printf("Array Sorted in "); });
-	if (arrCopy.size() < 1000 || PRINT) {
+	printf("****[ Create Random Array ]****\n");
+	Array<int> data_array;
+	data_array.createRandom(elements, min, max, true);
+
+	printf("\n****[ Insertion Sort ]****\n");
+	Array<int> arr_copy;
+	arr_copy.copyArray(data_array, true);
+	printf("Sorting...\n");
+	std::chrono::nanoseconds time = Time([&arr_copy] { arr_copy.insertionSort(); });
+	if (arr_copy.size() < MAXARRAYPRINTSIZE || FORCEPRINTARRAY) {
 		printf("[");
-		for (int el : arrCopy)
+		for (int el : arr_copy)
 			printf("%d, ", el);
 		printf("\b\b]\n");
 	}
+	printf("Sorted %d elements in: ", static_cast<int>(data_array.size()));
+	printTime(time);
+	compare_types["Insertion Sort"] = time;
+
+	printf("\n****[ Result ]****\n");
+	min_time = 0;
+	std::vector<std::pair<std::string, std::chrono::nanoseconds>> compare_types_vector;
+	compare_types_vector.reserve(compare_types.size());
+	for (std::pair<std::string, std::chrono::nanoseconds> el : compare_types)
+		compare_types_vector.emplace_back(el);
+	std::sort(compare_types_vector.begin(), compare_types_vector.end(), [](auto& left, auto& right) { return left.second < right.second; });
+	printf("Best time for %s with time: ", compare_types_vector[0].first.c_str());
+	printTime(compare_types_vector[0].second);
 }
