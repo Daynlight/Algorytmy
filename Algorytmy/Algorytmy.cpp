@@ -1,12 +1,9 @@
 #include "Algorytmy.h"
 
 int main(){
-	printf("Press to Start\n");
-	scanf("Press to Start\n");
-
 	CheckClock();
-	SumaAlgorytmy(10000000);
-	SortAlgorytmy(10000000);
+	SumaAlgorytmy(5000);
+	SortAlgorytmy(20);
 
 	return 0;
 }
@@ -18,7 +15,9 @@ void CheckClock(){
 }
 
 void SumaAlgorytmy(int elements) {
-	printf("\n################ Suma Algorytmow ################\n");
+	printf("\n###################################################################\n");
+	printf("######################### Suma Algorytmow #########################\n");
+	printf("###################################################################\n\n");
 
 	ARRAY<int> arr = ArrayCreate<int>(elements);
 	std::unordered_map<int, int> compareArray;
@@ -32,7 +31,8 @@ void SumaAlgorytmy(int elements) {
 	minTrhead = 0;
 	for (int i = 0; i < 10; i++){
 		arr.THREADSDEEPLEVEL = i;
-		compareArray[i] = Time([&arr] { printf("Suma: %lld for %d threads \n", arr.HalfThreadSumReq<long long>(), arr.THREADSDEEPLEVEL); });
+		compareArray[i] = Time([&arr] { if (PRINTTESTS) printf("Suma: %lld for %d threads \n", arr.HalfThreadSumReq<long long>(), arr.THREADSDEEPLEVEL);
+										else arr.HalfThreadSumReq<long long>(); }, PRINTTESTS);
 	};
 	for (auto el : compareArray)
 		if (el.second < compareArray[minTrhead]) minTrhead = el.first;
@@ -43,7 +43,8 @@ void SumaAlgorytmy(int elements) {
 	minTrhead = 0;
 	for (int i = 0; i < 10; i++) {
 		arr.THREADSDEEPLEVEL = i;
-		compareArray[i] = Time([&arr] { printf("Suma: %lld for %d threads \n", arr.HalfThreadAndLineSum<long long>(), arr.THREADSDEEPLEVEL); });
+		compareArray[i] = Time([&arr] { if (PRINTTESTS) printf("Suma: %lld for %d threads \n", arr.HalfThreadAndLineSum<long long>(), arr.THREADSDEEPLEVEL);
+										else arr.HalfThreadAndLineSum<long long>(); }, PRINTTESTS);
 	};
 	for (auto el : compareArray)
 		if (el.second < compareArray[minTrhead]) minTrhead = el.first;
@@ -51,12 +52,15 @@ void SumaAlgorytmy(int elements) {
 }
 
 void SortAlgorytmy(int elements) {
-	printf("\n################ Sort Algorytmow ################\n");
+	printf("\n###################################################################\n");
+	printf("######################### Sort Algorytmow #########################\n");
+	printf("###################################################################\n\n");
 
 	ARRAY<int> arr = ArrayCreate<int>(elements);
 
 	printf("\n****[Insertion Sort]****\n");
 	ARRAY<int> arrCopy = CopyArray(arr);
+	printf("Sorting...\n");
 	Time([&arrCopy] { arrCopy.InsertionSort(); printf("Array Sorted in "); });
 	if (arrCopy.size() < 1000 || PRINT) {
 		printf("[");

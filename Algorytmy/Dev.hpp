@@ -1,4 +1,4 @@
-int Time(std::function<void()> fun)
+int Time(std::function<void()> fun, bool print = true)
 {
 	std::chrono::high_resolution_clock::time_point Start = std::chrono::high_resolution_clock::now();
 
@@ -11,7 +11,7 @@ int Time(std::function<void()> fun)
 	std::chrono::milliseconds milisec = std::chrono::duration_cast<std::chrono::milliseconds>(delta);
 	std::chrono::nanoseconds nansec = std::chrono::duration_cast<std::chrono::nanoseconds>(delta);
 
-	printf("Time: %ld s | %ld ms | %ld ns\n", sec.count(), milisec.count(), nansec.count());
+	if(print) printf("Time: %ld s | %ld ms | %ld ns\n", sec.count(), milisec.count(), nansec.count());
 
 	return delta.count();
 }
@@ -65,8 +65,6 @@ void PROGRESSBAR::Render(int current) {
 		res += "(";
 		for (int i = 0; i < size; i++)
 			res += "#";
-		for (int i = 0; i < size - current_step; i++)
-			res += " ";
 		res += ")";
 		res += "100%\n";
 		printf("%s", res.c_str());

@@ -83,6 +83,7 @@ inline S ARRAY<T>::LineSum(int x, int y) {
 
 template<typename T>
 void ARRAY<T>::InsertionSort() {
+	PROGRESSBAR progress = PROGRESSBAR(arr.size(), 50);
 	for (int i = 1; i < arr.size(); ++i) {
 		int key = arr[i];
 		int j = i - 1;
@@ -92,6 +93,7 @@ void ARRAY<T>::InsertionSort() {
 			j--;
 		}
 		arr[j + 1] = key;
+	if (!PRINT)	progress.Render(i);
 	}
 }
 

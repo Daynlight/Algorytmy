@@ -33,7 +33,7 @@ inline ARRAY<T> ArrayCreate(int elements = 10) {
 		}
 		printf("Array Created in ");
 	});
-	printf("\nList Size: %d\n", arr.size());
+	printf("List Size: %d\n", arr.size());
 
 	return arr;
 }
@@ -52,6 +52,5 @@ inline ARRAY<T> CopyArray(ARRAY<T> orgArray) {
 		}
 		printf("Array Copied in ");
 		});
-	printf("\n");
 	return arr;
 }
