@@ -48,9 +48,35 @@ S ARRAY<T>::HalfThreadSumReq() {
 
 template<typename T>
 template<typename S>
-inline S ARRAY<T>::LineSum() {
+inline S ARRAY<T>::HalfThreadAndLineSum() {
+	int x = 0, y = arr.size();
+
+	if (y - x == 0) return arr[x];
+	else if (y - x == 1) return arr[x] + arr[y];
+	else if (y - x < 0) return 0;
+
+	S a = 0, b = 0;
+	if (ThreadsLevel < THREADSDEEPLEVEL) {
+		std::future<S> eventA =
+			std::async(std::launch::async, [this, &x, &y] { return HalfThreadSumReqFun<S>(x, (y - x) / 2 + x); });
+
+		ThreadsLevel++;
+		b = HalfThreadSumReqFun<S>((y - x) / 2 + x + 1, y);
+		a = eventA.get();
+	}
+	else {
+		a = LineSum<S>(x, (y - x) / 2 + x);
+		b = LineSum<S>((y - x) / 2 + x + 1, y - 1);
+	}
+
+	return a + b;
+}
+
+template<typename T>
+template<typename S>
+inline S ARRAY<T>::LineSum(int x, int y) {
 	S suma = 0;
-	for (int i = 0; i < arr.size(); i++)
+	for (int i = x; i < y + 1; i++)
 		suma += static_cast<S>(arr[i]);
 	return suma;
 }

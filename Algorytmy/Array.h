@@ -17,9 +17,11 @@ public:
 
 	// Sum
 	template<typename S>
+	S LineSum(int x, int y);
+	template<typename S>
 	S HalfThreadSumReq();
 	template<typename S>
-	S LineSum();
+	S HalfThreadAndLineSum();
 	// Sort
 	void InsertionSort();
 private:
