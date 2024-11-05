@@ -4,5 +4,5 @@
 #include "Array.h"
 
 void checkClock();
-void sumaAlgorytmy(size_t elements = 10, int min = INT_MIN, int max = INT_MAX);
-void sortAlgorytmy(size_t elements = 10, int min = INT_MIN, int max = INT_MAX);
+void sumaAlgorytmy(size_t elements = 10, int min = -1000, int max = 1000);
+void sortAlgorytmy(size_t elements = 10, int min = -1000, int max = 1000);
