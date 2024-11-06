@@ -23,10 +23,10 @@ int main(int args, const char *argv[]) {
 	if (args_map['s']) sumaAlgorytmy(10000000, -5000, 5000);
 	if (args_map['q']) sortAlgorytmy(10000000, 0, 5000);
 #else
-	printf("nwd(14, 28) = %d\n",nwd(14, 21));
 	checkClock();
-	sumaAlgorytmy(1000000, -5000, 5000);
-	sortAlgorytmy(1000000, 0, 5000);
+	nwdAlgorytmy(100000, -100000, 100000);
+	sumaAlgorytmy(100000, -5000, 5000);
+	sortAlgorytmy(100000, 0, 5000);
 #endif
 
 	return 0;
