@@ -13,9 +13,13 @@ int main(int args, const char *argv[]) {
 	}
 		
 	if (args_map['h']) {
+		printf("\n###################################################################\n");
+		printf("############################ Algorytmy ############################\n");
+		printf("###################################################################\n\n");
 		printf("c - Check clock accuracy\n");
 		printf("r - Recursion\n");
 		printf("n - NWD algorytms\n");
+		printf("p - POW algorytms\n");
 		printf("s - Show sum algorytms\n");
 		printf("q - Show sort algorytms\n");
 		return 0;
@@ -34,13 +38,26 @@ int main(int args, const char *argv[]) {
 		scanf("%d %d", &a, &b);
 		printf("NWD(%d, %d) = %d", a, b, nwdNormal(a, b));
 	}
-	if (args_map['s']) sumaAlgorytmy(100000, -5000, 5000);
-	if (args_map['q']) sortAlgorytmy(100000, -5000, 5000);
+	if (args_map['p'] && args_map['r']) {
+		int a, b;
+		printf("values: ");
+		scanf("%d %d", &a, &b);
+		printf("NWD(%d, %d) = %d", a, b, powRecursive(a, b));
+	}
+	if (args_map['p'] && !args_map['r']) {
+		int a, b;
+		printf("values: ");
+		scanf("%d %d", &a, &b);
+		printf("NWD(%d, %d) = %d", a, b, powNormal(a, b));
+	}
+	if (args_map['s']) sumaTest(100000, -5000, 5000);
+	if (args_map['q']) sortTest(100000, -5000, 5000);
 #else
 	checkClock();
-	nwdAlgorytmy(100000, -100000, 100000);
-	sumaAlgorytmy(100000, -5000, 5000);
-	sortAlgorytmy(100000, 0, 5000);
+	nwdTest(100000, -100000, 100000);
+	powTest(10);
+	sumaTest(100000, -5000, 5000);
+	sortTest(100000, 0, 5000);
 #endif
 
 	return 0;

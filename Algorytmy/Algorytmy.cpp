@@ -6,7 +6,7 @@ void checkClock(){
 	printTime(Time([] { std::this_thread::sleep_for(std::chrono::milliseconds(100)); }));
 }
 
-void nwdAlgorytmy(size_t count, int min, int max){
+void nwdTest(size_t count, int min, int max){
 	printf("\n###################################################################\n");
 	printf("########################## NWD Algorytmy ##########################\n");
 	printf("###################################################################\n\n");
@@ -43,7 +43,42 @@ void nwdAlgorytmy(size_t count, int min, int max){
 	printTime(compare_types_vector[0].second);
 }
 
-void sumaAlgorytmy(size_t elements, int min, int max) {
+void powTest(size_t count, int min, int max, int maxpow){
+	printf("\n###################################################################\n");
+	printf("########################## Pow Algorytmy ##########################\n");
+	printf("###################################################################\n\n");
+
+	std::unordered_map<std::string, std::chrono::nanoseconds> compare_types;
+
+	for (size_t i = 0; i < count; i++) {
+		int a = random(min, max);
+		int pow = random(0, maxpow);
+		long long res = 0;
+
+		std::chrono::nanoseconds time = Time([&res, &a, &pow] { res = powNormal(a, pow); });
+		if (count < MAXPRINTSIZE || FORCEPRINT) printf("powNormal(%d,%d) = %lld\n", a, pow, res);
+		if (count < MAXPRINTSIZE || FORCEPRINT) printTime(time);
+		compare_types["powNormal(" + std::to_string(a) + ", " + std::to_string(pow) + ")"] = time;
+
+		time = Time([&res, &a, &pow] { res = powRecursive(a, pow); });
+		if (count < MAXPRINTSIZE || FORCEPRINT) printf("powReqursion(%d,%d) = %lld\n", a, pow, res);
+		if (count < MAXPRINTSIZE || FORCEPRINT) printTime(time);
+		compare_types["powReqursion(" + std::to_string(a) + ", " + std::to_string(pow) + ")"] = time;
+	}
+
+
+	printf("\n****[ Result ]****\n");
+	int min_time = 0;
+	std::vector<std::pair<std::string, std::chrono::nanoseconds>> compare_types_vector;
+	compare_types_vector.reserve(compare_types.size());
+	for (std::pair<std::string, std::chrono::nanoseconds> el : compare_types)
+		compare_types_vector.emplace_back(el);
+	std::sort(compare_types_vector.begin(), compare_types_vector.end(), [](auto& left, auto& right) { return left.second < right.second; });
+	printf("Best time for %s with time: ", compare_types_vector[0].first.c_str());
+	printTime(compare_types_vector[0].second);
+}
+
+void sumaTest(size_t elements, int min, int max) {
 	printf("\n###################################################################\n");
 	printf("######################### Suma Algorytmy ##########################\n");
 	printf("###################################################################\n\n");
@@ -103,7 +138,7 @@ void sumaAlgorytmy(size_t elements, int min, int max) {
 	printTime(compare_types_vector[0].second);
 }
 
-void sortAlgorytmy(size_t elements, int min, int max) {
+void sortTest(size_t elements, int min, int max) {
 	printf("\n###################################################################\n");
 	printf("######################### Sort Algorytmy ##########################\n");
 	printf("###################################################################\n\n");
@@ -148,7 +183,7 @@ int nwdRecursive(int a, int b){
 	return nwdRecursive(b, a % b);
 }
 
-int nwdNormal(int a, int b){
+int nwdNormal(int a, int b) {
 	a = abs(a);
 	b = abs(b);
 	while (a != b && b) {
@@ -159,3 +194,17 @@ int nwdNormal(int a, int b){
 
 	return a;
 }
+
+long long powNormal(int a, int n){
+	int res = a;
+	if (n == 0) return 1;
+	for (int i = 1; i < n; i++) res *= a;
+	return res;
+}
+
+long long powRecursive(int a, int n){
+	if (n <= 0) return 1;
+	return a * powRecursive(a, n - 1);
+}
+
+

@@ -4,15 +4,17 @@
 #include "Array.h"
 
 void checkClock();
-void nwdAlgorytmy(size_t count = 10, int min = -20, int max = 20);
-void sumaAlgorytmy(size_t elements = 10, int min = -1000, int max = 1000);
-void sortAlgorytmy(size_t elements = 10, int min = -1000, int max = 1000);
+void nwdTest(size_t count = 10, int min = -20, int max = 20);
+void powTest(size_t count = 10, int min = -20, int max = 20, int maxpow = 10);
+void sumaTest(size_t elements = 10, int min = -1000, int max = 1000);
+void sortTest(size_t elements = 10, int min = -1000, int max = 1000);
 
-int nwdNormal(int a, int b);
-int nwdRecursive(int a, int b);
+int nwdNormal(int a, int b); // O(log(a+b))
+int nwdRecursive(int a, int b); // O(log(a+b))
 
+long long powNormal(int a, int n); // O(n)
+long long powRecursive(int a, int n); // O(n)
 /*
-int pow(int a, int n);
 int root(int a, int n);
 int silnia(int a);
 int fibonachi(int n);
