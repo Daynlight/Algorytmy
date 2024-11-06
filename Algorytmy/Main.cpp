@@ -24,8 +24,9 @@ int main(int args, const char *argv[]) {
 	if (args_map['q']) sortAlgorytmy(10000000, 0, 5000);
 #else
 	checkClock();
-	sumaAlgorytmy(1000000, -5000, 5000);
-	sortAlgorytmy(1000000, 0, 5000);
+	nwdAlgorytmy(100000, -100000, 100000);
+	sumaAlgorytmy(100000, -5000, 5000);
+	sortAlgorytmy(100000, 0, 5000);
 #endif
 
 	return 0;

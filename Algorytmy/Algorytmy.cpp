@@ -6,6 +6,43 @@ void checkClock(){
 	printTime(Time([] { std::this_thread::sleep_for(std::chrono::milliseconds(100)); }));
 }
 
+void nwdAlgorytmy(size_t count, int min, int max){
+	printf("\n###################################################################\n");
+	printf("########################## NWD Algorytmy ##########################\n");
+	printf("###################################################################\n\n");
+
+	std::unordered_map<std::string, std::chrono::nanoseconds> compare_types;
+
+	for (size_t i = 0; i < count; i++) {
+		int a = random(min, max);
+		int b = random(min, max);
+		int mult = random(min, max);
+		b *= mult;
+		int nwd = 0;
+
+		std::chrono::nanoseconds time = Time([&nwd, &a, &b] { nwd = nwdNormal(a, b); });
+		if (count < MAXPRINTSIZE || FORCEPRINT) printf("nwdNormal(%d,%d) = %d\n", a, b, nwd);
+		if (count < MAXPRINTSIZE || FORCEPRINT) printTime(time);
+		compare_types["nwdNormal(" + std::to_string(a) + ", " + std::to_string(b) + ")"] = time;
+
+		time = Time([&nwd, &a, &b] { nwd = nwdRecursive(a, b); });
+		if (count < MAXPRINTSIZE || FORCEPRINT) printf("nwdReqursion(%d,%d) = %d\n", a, b, nwd);
+		if (count < MAXPRINTSIZE || FORCEPRINT) printTime(time);
+		compare_types["nwdReqursion(" + std::to_string(a) + ", " + std::to_string(b) + ")"] = time;
+	}
+
+
+	printf("\n****[ Result ]****\n");
+	int min_time = 0;
+	std::vector<std::pair<std::string, std::chrono::nanoseconds>> compare_types_vector;
+	compare_types_vector.reserve(compare_types.size());
+	for (std::pair<std::string, std::chrono::nanoseconds> el : compare_types)
+		compare_types_vector.emplace_back(el);
+	std::sort(compare_types_vector.begin(), compare_types_vector.end(), [](auto& left, auto& right) { return left.second < right.second; });
+	printf("Best time for %s with time: ", compare_types_vector[0].first.c_str());
+	printTime(compare_types_vector[0].second);
+}
+
 void sumaAlgorytmy(size_t elements, int min, int max) {
 	printf("\n###################################################################\n");
 	printf("######################### Suma Algorytmy ##########################\n");
@@ -83,7 +120,7 @@ void sortAlgorytmy(size_t elements, int min, int max) {
 	arr_copy.copyArray(data_array, true);
 	printf("Sorting...\n");
 	std::chrono::nanoseconds time = Time([&arr_copy] { arr_copy.insertionSort(); });
-	if (arr_copy.size() < MAXARRAYPRINTSIZE || FORCEPRINTARRAY) {
+	if (arr_copy.size() < MAXARRAYPRINTSIZE || FORCEPRINT) {
 		printf("[");
 		for (int el : arr_copy)
 			printf("%d, ", el);
@@ -102,4 +139,23 @@ void sortAlgorytmy(size_t elements, int min, int max) {
 	std::sort(compare_types_vector.begin(), compare_types_vector.end(), [](auto& left, auto& right) { return left.second < right.second; });
 	printf("Best time for %s with time: ", compare_types_vector[0].first.c_str());
 	printTime(compare_types_vector[0].second);
+}
+
+int nwdRecursive(int a, int b){
+	a = abs(a);
+	b = abs(b);
+	if (b == 0) return a;
+	return nwdRecursive(b, a % b);
+}
+
+int nwdNormal(int a, int b){
+	a = abs(a);
+	b = abs(b);
+	while (a != b && b) {
+		int temp = a % b;
+		a = b;
+		b = temp;
+	}
+
+	return a;
 }

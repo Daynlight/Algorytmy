@@ -27,7 +27,7 @@ void Array<T>::createRandom(const size_t elements, const int min, const int max,
 	if(progress_bar) printf("Creating Random Array...\n");
 	std::chrono::nanoseconds time = Time(
 		[this, &elements, &create_progress, &min, &max, &progress_bar] {
-		if ((elements < MAXARRAYPRINTSIZE || FORCEPRINTARRAY) && !progress_bar) {
+		if ((elements < MAXARRAYPRINTSIZE || FORCEPRINT) && !progress_bar) {
 			printf("[");
 			for (int i = 0; i < elements; i++) {
 				data_array.emplace_back(random(min, max));

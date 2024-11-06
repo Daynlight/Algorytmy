@@ -4,8 +4,9 @@
 #include <functional>
 #include <chrono>
 
-static bool FORCEPRINTARRAY = 0;
+static bool FORCEPRINT = 0;
 static int MAXARRAYPRINTSIZE = 1001;
+static int MAXPRINTSIZE = 10;
 
 const std::chrono::nanoseconds Time(const std::function<void()> function);
 void printTime(const std::chrono::nanoseconds delta);
