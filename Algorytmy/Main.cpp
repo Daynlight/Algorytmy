@@ -14,6 +14,7 @@ int main(int args, const char *argv[]) {
 		
 	if (args_map['h']) {
 		printf("c - Check clock accuracy\n");
+		printf("r - Recursion\n");
 		printf("n - NWD algorytms\n");
 		printf("s - Show sum algorytms\n");
 		printf("q - Show sort algorytms\n");
@@ -21,7 +22,18 @@ int main(int args, const char *argv[]) {
 	}
 
 	if (args_map['c']) checkClock();
-	if (args_map['n']) nwdAlgorytmy(20, -100, 100);
+	if (args_map['n'] && args_map['r']) {
+		int a, b;
+		printf("values: ");
+		scanf("%d %d", &a, &b);
+		printf("NWD(%d, %d) = %d", a, b, nwdRecursive(a, b));
+	}
+	if (args_map['n'] && !args_map['r']) {
+		int a, b;
+		printf("values: ");
+		scanf("%d %d", &a, &b);
+		printf("NWD(%d, %d) = %d", a, b, nwdNormal(a, b));
+	}
 	if (args_map['s']) sumaAlgorytmy(100000, -5000, 5000);
 	if (args_map['q']) sortAlgorytmy(100000, -5000, 5000);
 #else
