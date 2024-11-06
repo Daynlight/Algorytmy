@@ -23,6 +23,8 @@ public:
 	T lineSum(const size_t x, const size_t y);
 	T halfThreadSumReq(size_t thread_level = 0);
 	T halfThreadAndLineSum(size_t thread_level);
+	// Search
+	
 	// Sort
 	void insertionSort(bool progress_bar = false);
 
