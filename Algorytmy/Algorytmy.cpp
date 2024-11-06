@@ -103,3 +103,15 @@ void sortAlgorytmy(size_t elements, int min, int max) {
 	printf("Best time for %s with time: ", compare_types_vector[0].first.c_str());
 	printTime(compare_types_vector[0].second);
 }
+
+int nwd(int a, int b){
+	a = abs(a);
+	b = abs(b);
+	while (a != b && b) {
+		int temp = a % b;
+		a = b;
+		b = temp;
+	}
+
+	return a;
+}
