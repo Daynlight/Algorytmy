@@ -54,8 +54,18 @@ int main(int args, const char *argv[]) {
 	if (args_map['q']) sortTest(100000, -5000, 5000);
 #else
 	checkClock();
-	nwdTest(100000, -100000, 100000);
-	powTest(10);
+	std::chrono::nanoseconds time = Time([]{printf("nwd(%d, %d) = %d ", 27, -6, nwdNormal(27, -6));});
+	printTime(time);
+	time = Time([]{printf("nwd(%d, %d) = %d ", 27, -6, nwdNormal(27, -6));});
+	printTime(time);
+	time = Time([]{printf("%d^%d = %d ", 2, 5, powNormal(2, 5));});
+	printTime(time);
+	time = Time([]{printf("%d^%d = %d ", 2, 5, powRecursive(2, 5));});
+	printTime(time);
+	time = Time([]{printf("%d! = %d ", 5, silniaNormal(5));});
+	printTime(time);
+	time = Time([]{printf("%d! = %d ", 5, silniaRecursive(5));});
+	printTime(time);
 	sumaTest(100000, -5000, 5000);
 	sortTest(100000, 0, 5000);
 #endif
