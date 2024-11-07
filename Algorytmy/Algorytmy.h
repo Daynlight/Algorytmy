@@ -16,9 +16,10 @@ int powRecursive(int a, int n); // O(n)
 int silniaNormal(int n); // O(n)
 int silniaRecursive(int n); // O(n)
 
+int fibonachiNormal(int n); // O(n)
+int fibonachiRecursive(int n); // O(n)
 
 /*
 int root(int a, int n);
-int fibonachi(int n);
 int firstInRange(int a, int b);
 */
