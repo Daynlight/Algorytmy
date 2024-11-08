@@ -11,13 +11,11 @@ int main(int args, const char *argv[]) {
 	int index = -1;
 
 	for(int i = 1; i < args; i++){
-		if(argv[i][0] == '-'){
-			if(argv[i][1] == '-'){
-				index++;
-				key = argv[i];
-				argv_map.emplace_back(std::pair<std::string, std::vector<int>>());
-				argv_map[index].first = key;
-			}
+		if(argv[i][0] == '-' && argv[i][1] == '-'){
+			index++;
+			key = argv[i];
+			argv_map.emplace_back(std::pair<std::string, std::vector<int>>());
+			argv_map[index].first = key;
 		}
 		else{
 			std::stringstream strVal;
