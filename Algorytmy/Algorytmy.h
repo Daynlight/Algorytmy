@@ -1,5 +1,7 @@
 #pragma once
 #include <unordered_map>
+#include <sstream>
+#include <memory>
 #include "Dev.h"
 #include "Array.h"
 
