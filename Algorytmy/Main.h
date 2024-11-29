@@ -1,10 +1,5 @@
-#include "Algorytmy.h"
-
-void checkClock(){
-	printf("\n****[Checking Clock Accuracy]****\n");
-	printf("Clock test 100ms: ");
-	printTime(Time([] { std::this_thread::sleep_for(std::chrono::milliseconds(100)); }));
-}
+#include "Base/Base.h"
+#include "Arrays/Array.h"
 
 void sumaTest(size_t elements, int min, int max) {
 	printf("\n###################################################################\n");
@@ -31,7 +26,7 @@ void sumaTest(size_t elements, int min, int max) {
 	compare_threads.clear();
 	min_time = 0;
 	for (int i = 0; i < 10; i++){
-		compare_threads[i] = Time([&arr, &suma, &i] { suma = arr.halfThreadSumReq(i); });
+		compare_threads[i] = Time([&arr, &suma, &i] { suma = arr.threadSum(i); });
 		printf("Sumed %d elements with resault %d on %d threads in: ", static_cast<int>(arr.size()), suma, i);
 		printTime(compare_threads[i]);
 	};
@@ -45,7 +40,7 @@ void sumaTest(size_t elements, int min, int max) {
 	compare_threads.clear();
 	min_time = 0;
 	for (int i = 0; i < 10; i++) {
-		compare_threads[i] = Time([&arr, &i] { arr.halfThreadAndLineSum(i); });
+		compare_threads[i] = Time([&arr, &i] { arr.hybridSum(i); });
 		printf("Sumed %d elements with resault %d on %d threads in: ", static_cast<int>(arr.size()), suma, i);
 		printTime(compare_threads[i]);
 	};
@@ -102,62 +97,4 @@ void sortTest(size_t elements, int min, int max) {
 	std::sort(compare_types_vector.begin(), compare_types_vector.end(), [](auto& left, auto& right) { return left.second < right.second; });
 	printf("Best time for %s with time: ", compare_types_vector[0].first.c_str());
 	printTime(compare_types_vector[0].second);
-}
-
-int nwdRecursive(int a, int b){
-	a = abs(a);
-	b = abs(b);
-	if (b == 0) return a;
-	return nwdRecursive(b, a % b);
-}
-
-int nwdNormal(int a, int b) {
-	a = abs(a);
-	b = abs(b);
-	while (a != b && b) {
-		int temp = a % b;
-		a = b;
-		b = temp;
-	}
-
-	return a;
-}
-
-int powNormal(int a, int n){
-	int res = a;
-	if (n == 0) return 1;
-	for (int i = 1; i < n; i++) res *= a;
-	return res;
-}
-
-int powRecursive(int a, int n){
-	if (n <= 0) return 1;
-	return a * powRecursive(a, n - 1);
-}
-
-int silniaNormal(int n) {
-  int res = n;
-	for(int i = 2; i < n; i++) res *= i;
-	return res;
-}
-
-int silniaRecursive(int n){
-	if(n == 2) return 2;
-  return n * silniaRecursive(n-1);
-}
-
-int fibonachiNormal(int n) {
-	int a = 1, b = 1, c = 2;
-	for (int i = 0; i < n - 2; i++){
-		c = a + b;
-		a = b;
-		b = c;
-	}
-
-  return c;
-}
-
-int fibonachiRecursive(int n) {
-	if(n <= 2) return 1;
-  return fibonachiRecursive(n - 1) + fibonachiRecursive(n - 2);
 }

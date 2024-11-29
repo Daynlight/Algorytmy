@@ -1,5 +1,11 @@
 #include "Dev.h"
 
+void checkClock(){
+	printf("\n****[Checking Clock Accuracy]****\n");
+	printf("Clock test 100ms: ");
+	printTime(Time([] { std::this_thread::sleep_for(std::chrono::milliseconds(100)); }));
+}
+
 ProgressBar::ProgressBar(const size_t last, const size_t size)
 	: last(last), size(size) {}
 

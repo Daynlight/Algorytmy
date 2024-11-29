@@ -1,6 +1,6 @@
 #pragma once
 #include <vector>
-#include "Dev.h"
+#include "../Dev.h"
 
 template<typename T>
 class Array {
@@ -21,8 +21,8 @@ public:
 public:
 	// Sum
 	T lineSum(const size_t x, const size_t y);
-	T halfThreadSumReq(size_t thread_level = 0);
-	T halfThreadAndLineSum(size_t thread_level);
+	T threadSum(size_t thread_level = 0);
+	T hybridSum(size_t thread_level);
 	// Search
 	
 	// Sort

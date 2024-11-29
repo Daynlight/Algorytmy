@@ -1,6 +1,10 @@
-#include "Algorytmy.h"
+#include "Main.h"
 
-#define NDEBUG
+//#define NDEBUG
+
+void checkClock();
+void sumaTest(size_t elements = 10, int min = -1000, int max = 1000);
+void sortTest(size_t elements = 10, int min = -1000, int max = 1000);
 
 int main(int args, const char *argv[]) {
 #ifdef NDEBUG
