@@ -49,16 +49,16 @@ void Array<T>::createRandom(const size_t elements, const int min, const int max,
 }
 
 template <typename T>
-void Array<T>::copyArray(Array<T> &orginal_array, const bool progress_bar) {
+void Array<T>::copyArray(Array<T> &original_array, const bool progress_bar) {
 	data_array.clear();
-	data_array.reserve(orginal_array.size());
-	ProgressBar copy_progress = ProgressBar(orginal_array.size(), 50);
+	data_array.reserve(original_array.size());
+	ProgressBar copy_progress = ProgressBar(original_array.size(), 50);
 
 	if (progress_bar) printf("Copying Array...\n");
 	std::chrono::nanoseconds time = Time(
-		[this, &orginal_array, &copy_progress, &progress_bar] {
+		[this, &original_array, &copy_progress, &progress_bar] {
 		int i = 0;
-		for (const T el : orginal_array) {
+		for (const T el : original_array) {
 			data_array.emplace_back(el);
 			if(progress_bar) copy_progress.render(i++);
 		}

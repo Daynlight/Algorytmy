@@ -64,11 +64,11 @@ const std::chrono::nanoseconds Time(size_t n, const std::function<void()> functi
 }
 
 void printTime(const std::chrono::nanoseconds delta) {
-	const std::chrono::seconds sec = std::chrono::duration_cast<std::chrono::seconds>(delta);
-	const std::chrono::milliseconds milisec = std::chrono::duration_cast<std::chrono::milliseconds>(delta);
-	const std::chrono::nanoseconds nansec = std::chrono::duration_cast<std::chrono::nanoseconds>(delta);
+	const std::chrono::seconds seconds = std::chrono::duration_cast<std::chrono::seconds>(delta);
+	const std::chrono::milliseconds miliseconds = std::chrono::duration_cast<std::chrono::milliseconds>(delta);
+	const std::chrono::nanoseconds nanoseconds = std::chrono::duration_cast<std::chrono::nanoseconds>(delta);
 
-	printf("%lld s | %lld ms | %lld ns\n", sec.count(), milisec.count(), nansec.count());
+	printf("%lld s | %lld ms | %lld ns\n", seconds.count(), miliseconds.count(), nanoseconds.count());
 }
 
 int random(const int x, const int y) {

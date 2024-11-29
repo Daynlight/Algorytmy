@@ -2,15 +2,15 @@
 #include "Arrays/Array.h"
 #include <algorithm>
 
-void sumaTest(size_t elements, int min, int max) {
+void sumTest(size_t elements, int min, int max) {
 	printf("\n###################################################################\n");
-	printf("######################### Suma Algorytmy ##########################\n");
+	printf("######################### Sum Algorithms ##########################\n");
 	printf("###################################################################\n\n");
 
 	std::unordered_map<size_t, std::chrono::nanoseconds> compare_threads;
 	std::unordered_map<std::string, std::chrono::nanoseconds> compare_types;
 	size_t min_time = 0;
-	int suma = 0;
+	int sum = 0;
 
 	printf("****[ Create Random Array ]****\n");
 	Array<int> arr;
@@ -18,8 +18,8 @@ void sumaTest(size_t elements, int min, int max) {
 
 	printf("\n****[ Line Sum ]****\n");
 	std::chrono::nanoseconds time = 
-		Time([&arr, &suma] { suma = arr.lineSum(0, arr.size()); });
-	printf("Sumed %d elements with resault %d in ", static_cast<int>(arr.size()), suma);
+		Time([&arr, &sum] { sum = arr.lineSum(0, arr.size()); });
+	printf("Summed %d elements with result %d in ", static_cast<int>(arr.size()), sum);
 	printTime(time);
 	compare_types["Line Sum"] = time;
 
@@ -27,8 +27,8 @@ void sumaTest(size_t elements, int min, int max) {
 	compare_threads.clear();
 	min_time = 0;
 	for (int i = 0; i < 10; i++){
-		compare_threads[i] = Time([&arr, &suma, &i] { suma = arr.threadSum(i); });
-		printf("Sumed %d elements with resault %d on %d threads in: ", static_cast<int>(arr.size()), suma, i);
+		compare_threads[i] = Time([&arr, &sum, &i] { sum = arr.threadSum(i); });
+		printf("Summed %d elements with result %d on %d threads in: ", static_cast<int>(arr.size()), sum, i);
 		printTime(compare_threads[i]);
 	};
 	for (auto el : compare_threads)
@@ -42,7 +42,7 @@ void sumaTest(size_t elements, int min, int max) {
 	min_time = 0;
 	for (int i = 0; i < 10; i++) {
 		compare_threads[i] = Time([&arr, &i] { arr.hybridSum(i); });
-		printf("Sumed %d elements with resault %d on %d threads in: ", static_cast<int>(arr.size()), suma, i);
+		printf("Summed %d elements with result %d on %d threads in: ", static_cast<int>(arr.size()), sum, i);
 		printTime(compare_threads[i]);
 	};
 	for (auto el : compare_threads)
@@ -62,9 +62,9 @@ void sumaTest(size_t elements, int min, int max) {
 	printTime(compare_types_vector[0].second);
 }
 
-void sortTest(size_t elements, int min, int max) {
+void sortTest(size_t elements, int min, int max, int tests = 1) {
 	printf("\n###################################################################\n");
-	printf("######################### Sort Algorytmy ##########################\n");
+	printf("######################### Sort Algorithms ##########################\n");
 	printf("###################################################################\n\n");
 
 	std::unordered_map<std::string, std::chrono::nanoseconds> compare_types;
@@ -78,13 +78,7 @@ void sortTest(size_t elements, int min, int max) {
 	Array<int> arr_copy;
 	arr_copy.copyArray(data_array, true);
 	printf("Sorting...\n");
-	std::chrono::nanoseconds time = Time([&arr_copy] { arr_copy.insertionSort(); });
-	if (arr_copy.size() < MAXARRAYPRINTSIZE || FORCEPRINT) {
-		printf("[");
-		for (int el : arr_copy)
-			printf("%d, ", el);
-		printf("\b\b]\n");
-	}
+	std::chrono::nanoseconds time = Time(tests, [&arr_copy] { arr_copy.insertionSort(); });
 	printf("Sorted %d elements in: ", static_cast<int>(data_array.size()));
 	printTime(time);
 	compare_types["Insertion Sort"] = time;
@@ -92,13 +86,7 @@ void sortTest(size_t elements, int min, int max) {
 	printf("\n****[ Selection Sort ]****\n");
 	arr_copy.copyArray(data_array, true);
 	printf("Sorting...\n");
-	time = Time([&arr_copy] { arr_copy.selectionSort(); });
-	if (arr_copy.size() < MAXARRAYPRINTSIZE || FORCEPRINT) {
-		printf("[");
-		for (int el : arr_copy)
-			printf("%d, ", el);
-		printf("\b\b]\n");
-	}
+	time = Time(tests, [&arr_copy] { arr_copy.selectionSort(); });
 	printf("Sorted %d elements in: ", static_cast<int>(data_array.size()));
 	printTime(time);
 	compare_types["Selection Sort"] = time;
@@ -106,13 +94,7 @@ void sortTest(size_t elements, int min, int max) {
 	printf("\n****[ Bubble Sort ]****\n");
 	arr_copy.copyArray(data_array, true);
 	printf("Sorting...\n");
-	time = Time([&arr_copy] { arr_copy.bubbleSort(); });
-	if (arr_copy.size() < MAXARRAYPRINTSIZE || FORCEPRINT) {
-		printf("[");
-		for (int el : arr_copy)
-			printf("%d, ", el);
-		printf("\b\b]\n");
-	}
+	time = Time(tests, [&arr_copy] { arr_copy.bubbleSort(); });
 	printf("Sorted %d elements in: ", static_cast<int>(data_array.size()));
 	printTime(time);
 	compare_types["Bubble Sort"] = time;
@@ -120,16 +102,18 @@ void sortTest(size_t elements, int min, int max) {
 	printf("\n****[ Merge Sort ]****\n");
 	arr_copy.copyArray(data_array, true);
 	printf("Sorting...\n");
-	time = Time([&arr_copy] { arr_copy.mergeSort(); });
-	if (arr_copy.size() < MAXARRAYPRINTSIZE || FORCEPRINT) {
-		printf("[");
-		for (int el : arr_copy)
-			printf("%d, ", el);
-		printf("\b\b]\n");
-	}
+	time = Time(tests, [&arr_copy] { arr_copy.mergeSort(); });
 	printf("Sorted %d elements in: ", static_cast<int>(data_array.size()));
 	printTime(time);
 	compare_types["Merge Sort"] = time;
+
+	printf("\n****[ Quick Sort ]****\n");
+	arr_copy.copyArray(data_array, true);
+	printf("Sorting...\n");
+	time = Time(tests, [&arr_copy] { arr_copy.quickSort(); });
+	printf("Sorted %d elements in: ", static_cast<int>(data_array.size()));
+	printTime(time);
+	compare_types["Quick Sort"] = time;
 
 	printf("\n****[ Result ]****\n");
 	min_time = 0;
