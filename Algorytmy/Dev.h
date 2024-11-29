@@ -7,7 +7,8 @@
 static bool FORCEPRINT = 0;
 static int MAXARRAYPRINTSIZE = 1001;
 static int MAXPRINTSIZE = 21;
-const bool THREADS = true;
+static const size_t DIVARRAYSIZE = 1000000;
+static const bool THREADS = true;
 
 const std::chrono::nanoseconds Time(const std::function<void()> function);
 const std::chrono::nanoseconds Time(size_t n, const std::function<void()> function);
