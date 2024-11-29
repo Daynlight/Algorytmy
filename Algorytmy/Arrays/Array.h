@@ -29,10 +29,14 @@ public:
 	void insertionSort(bool progress_bar = false);
 	void bubbleSort(bool progress_bar = false);
 	void selectionSort(bool progress_bar = false);
+	void mergeSort();
 private:
 	// Sum
 	T halfThreadSumReqFun(const size_t x, const size_t y, size_t &thread_level);
 	T halfThreadAndLineSumFun(const size_t x, const size_t y, size_t & thread_level);
+	// Sort
+	void mergeSortReq(int a, int b);
+	void mergeSortMerge(int a, int q, int b);
 };
 
 #include "Array.hpp"

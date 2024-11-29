@@ -20,7 +20,7 @@ int main(int args, const char *argv[]) {
 
 	// Array<int> array;
 	// array.createRandom(1000);
-	// array.bubbleSort(true);
+	// array.mergeSort(true);
 	// printf("[");
 	// for (int el : array)
 	// 	printf("%d, ", el);

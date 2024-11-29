@@ -92,7 +92,7 @@ void sortTest(size_t elements, int min, int max) {
 	printf("\n****[ Selection Sort ]****\n");
 	arr_copy.copyArray(data_array, true);
 	printf("Sorting...\n");
-	time = Time([&arr_copy] { arr_copy.selectionSort(true); });
+	time = Time([&arr_copy] { arr_copy.selectionSort(); });
 	if (arr_copy.size() < MAXARRAYPRINTSIZE || FORCEPRINT) {
 		printf("[");
 		for (int el : arr_copy)
@@ -106,7 +106,7 @@ void sortTest(size_t elements, int min, int max) {
 	printf("\n****[ Bubble Sort ]****\n");
 	arr_copy.copyArray(data_array, true);
 	printf("Sorting...\n");
-	time = Time([&arr_copy] { arr_copy.bubbleSort(true); });
+	time = Time([&arr_copy] { arr_copy.bubbleSort(); });
 	if (arr_copy.size() < MAXARRAYPRINTSIZE || FORCEPRINT) {
 		printf("[");
 		for (int el : arr_copy)
@@ -116,6 +116,20 @@ void sortTest(size_t elements, int min, int max) {
 	printf("Sorted %d elements in: ", static_cast<int>(data_array.size()));
 	printTime(time);
 	compare_types["Bubble Sort"] = time;
+
+	printf("\n****[ Merge Sort ]****\n");
+	arr_copy.copyArray(data_array, true);
+	printf("Sorting...\n");
+	time = Time([&arr_copy] { arr_copy.mergeSort(); });
+	if (arr_copy.size() < MAXARRAYPRINTSIZE || FORCEPRINT) {
+		printf("[");
+		for (int el : arr_copy)
+			printf("%d, ", el);
+		printf("\b\b]\n");
+	}
+	printf("Sorted %d elements in: ", static_cast<int>(data_array.size()));
+	printTime(time);
+	compare_types["Merge Sort"] = time;
 
 	printf("\n****[ Result ]****\n");
 	min_time = 0;

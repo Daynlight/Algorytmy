@@ -4,3 +4,5 @@
 #include "Sort/insertion.hpp"
 #include "Sort/bubble.hpp"
 #include "Sort/selectionSort.hpp"
+#include "Sort/mergeSort.hpp"
+#include "Sort/quickSort.hpp"

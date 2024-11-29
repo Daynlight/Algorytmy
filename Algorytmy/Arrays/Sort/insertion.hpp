@@ -3,7 +3,6 @@
 template<typename T>
 void Array<T>::insertionSort(bool progress_bar) {
 	ProgressBar progress = ProgressBar(data_array.size(), 50);
-	if (progress_bar) printf("Sorting...");
 	for (int i = 1; i < data_array.size(); ++i) {
 		int key = data_array[i];
 		int j = i - 1;
@@ -13,6 +12,6 @@ void Array<T>::insertionSort(bool progress_bar) {
 			j--;
 		}
 		data_array[j + 1] = key;
-		if (!progress_bar) progress.render(i);
+		if (progress_bar) progress.render(i);
 	}
 }
