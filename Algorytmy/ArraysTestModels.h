@@ -1,5 +1,6 @@
 #include "Base/Base.h"
 #include "Arrays/Array.h"
+#include <algorithm>
 
 void sumaTest(size_t elements, int min, int max) {
 	printf("\n###################################################################\n");

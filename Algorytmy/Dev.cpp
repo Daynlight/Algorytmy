@@ -56,6 +56,13 @@ const std::chrono::nanoseconds Time(const std::function<void()> function) {
 	return delta;
 }
 
+const std::chrono::nanoseconds Time(size_t n, const std::function<void()> function) {
+	std::chrono::nanoseconds sum = std::chrono::nanoseconds(0);
+	for(size_t i = 0; i < n; i++)
+		sum += Time(function);
+	return sum/n;
+}
+
 void printTime(const std::chrono::nanoseconds delta) {
 	const std::chrono::seconds sec = std::chrono::duration_cast<std::chrono::seconds>(delta);
 	const std::chrono::milliseconds milisec = std::chrono::duration_cast<std::chrono::milliseconds>(delta);
