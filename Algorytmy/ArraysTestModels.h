@@ -89,6 +89,34 @@ void sortTest(size_t elements, int min, int max) {
 	printTime(time);
 	compare_types["Insertion Sort"] = time;
 
+	printf("\n****[ Selection Sort ]****\n");
+	arr_copy.copyArray(data_array, true);
+	printf("Sorting...\n");
+	time = Time([&arr_copy] { arr_copy.selectionSort(true); });
+	if (arr_copy.size() < MAXARRAYPRINTSIZE || FORCEPRINT) {
+		printf("[");
+		for (int el : arr_copy)
+			printf("%d, ", el);
+		printf("\b\b]\n");
+	}
+	printf("Sorted %d elements in: ", static_cast<int>(data_array.size()));
+	printTime(time);
+	compare_types["Selection Sort"] = time;
+
+	printf("\n****[ Bubble Sort ]****\n");
+	arr_copy.copyArray(data_array, true);
+	printf("Sorting...\n");
+	time = Time([&arr_copy] { arr_copy.bubbleSort(true); });
+	if (arr_copy.size() < MAXARRAYPRINTSIZE || FORCEPRINT) {
+		printf("[");
+		for (int el : arr_copy)
+			printf("%d, ", el);
+		printf("\b\b]\n");
+	}
+	printf("Sorted %d elements in: ", static_cast<int>(data_array.size()));
+	printTime(time);
+	compare_types["Bubble Sort"] = time;
+
 	printf("\n****[ Result ]****\n");
 	min_time = 0;
 	std::vector<std::pair<std::string, std::chrono::nanoseconds>> compare_types_vector;

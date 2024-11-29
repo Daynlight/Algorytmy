@@ -27,7 +27,8 @@ public:
 	
 	// Sort
 	void insertionSort(bool progress_bar = false);
-
+	void bubbleSort(bool progress_bar = false);
+	void selectionSort(bool progress_bar = false);
 private:
 	// Sum
 	T halfThreadSumReqFun(const size_t x, const size_t y, size_t &thread_level);
