@@ -15,6 +15,5 @@ void Array<T>::insertionSort(std::function<bool(T a, T b)> compare, bool progres
 		if (progress_bar) progress.render(i);																										// 1
 	}
 }
-
 // 1 + (n - 2)(4 + 2*(n - 2)) = 1 + (n - 2)(2n) = 1 + 2n^2 - 4n < 1 + 2n^2 <(dla n > 1) < 3n^2 => O(n^2)
-// 1 + (n - 2)(4 + 0*2) = 1 + (n - 2)(4) = 1 + 4n - 8 = 4n - 7 < 4n => Ω(n)
+// 1 + (n - 2)(4 + 0*2) = 1 + (n - 2)(4) = 1 + 4n - 8 = 4n - 7 >(dla n > 4) n => Ω(n)
