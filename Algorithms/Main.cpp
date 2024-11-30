@@ -8,8 +8,9 @@ void checkClock();
 int main(int args, const char *argv[]) {
 	checkClock();
 
-	sumTest(pow(2, 24), -200, 200);
-	sortTest(pow(2, 16), INT_MIN, INT_MAX);
+	armstrongNumbersTest(100, 999999);
+	sumTest(999999, -200, 200);
+	sortTest(9999, -200000, 200000);
 
 	return 0;
 }
