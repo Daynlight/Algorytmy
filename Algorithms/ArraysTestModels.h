@@ -1,6 +1,8 @@
 #include "Base/Base.h"
 #include "Arrays/Array.h"
 #include <algorithm>
+#include <string>
+#include <functional>
 
 void sumTest(size_t elements, int min, int max) {
 	printf("\n###################################################################\n");
@@ -62,66 +64,35 @@ void sumTest(size_t elements, int min, int max) {
 	printTime(compare_types_vector[0].second);
 }
 
+void sortTestOne(std::string Name, Array<int> *original_array, int tests, Array<std::pair<std::string, std::chrono::nanoseconds>> *compare_types, const std::function<void(Array<int>)> function){
+	printf("\n****[ %s ]****\n", Name.c_str());
+	Array<int> arr_copy;
+	arr_copy.copyArray(*original_array, true);
+	printf("Sorting...\n");
+	std::chrono::nanoseconds time = Time(tests, [&function, &arr_copy] { function(arr_copy); });
+	printf("Sorted %d elements in: ", static_cast<int>(original_array->size()));
+	printTime(time);
+	(*compare_types).emplace_back(std::pair<std::string, std::chrono::nanoseconds>(Name, time));
+}
+
 void sortTest(size_t elements, int min, int max, int tests = 1) {
 	printf("\n###################################################################\n");
 	printf("######################### Sort Algorithms ##########################\n");
 	printf("###################################################################\n\n");
 
-	std::unordered_map<std::string, std::chrono::nanoseconds> compare_types;
-	int min_time = 0;
+	Array<std::pair<std::string, std::chrono::nanoseconds>> compare_types;
 
 	printf("****[ Create Random Array ]****\n");
 	Array<int> data_array;
 	data_array.createRandom(elements, min, max, true);
 
-	printf("\n****[ Insertion Sort ]****\n");
-	Array<int> arr_copy;
-	arr_copy.copyArray(data_array, true);
-	printf("Sorting...\n");
-	std::chrono::nanoseconds time = Time(tests, [&arr_copy] { arr_copy.insertionSort(); });
-	printf("Sorted %d elements in: ", static_cast<int>(data_array.size()));
-	printTime(time);
-	compare_types["Insertion Sort"] = time;
-
-	printf("\n****[ Selection Sort ]****\n");
-	arr_copy.copyArray(data_array, true);
-	printf("Sorting...\n");
-	time = Time(tests, [&arr_copy] { arr_copy.selectionSort(); });
-	printf("Sorted %d elements in: ", static_cast<int>(data_array.size()));
-	printTime(time);
-	compare_types["Selection Sort"] = time;
-
-	printf("\n****[ Bubble Sort ]****\n");
-	arr_copy.copyArray(data_array, true);
-	printf("Sorting...\n");
-	time = Time(tests, [&arr_copy] { arr_copy.bubbleSort(); });
-	printf("Sorted %d elements in: ", static_cast<int>(data_array.size()));
-	printTime(time);
-	compare_types["Bubble Sort"] = time;
-
-	printf("\n****[ Merge Sort ]****\n");
-	arr_copy.copyArray(data_array, true);
-	printf("Sorting...\n");
-	time = Time(tests, [&arr_copy] { arr_copy.mergeSort(); });
-	printf("Sorted %d elements in: ", static_cast<int>(data_array.size()));
-	printTime(time);
-	compare_types["Merge Sort"] = time;
-
-	printf("\n****[ Quick Sort ]****\n");
-	arr_copy.copyArray(data_array, true);
-	printf("Sorting...\n");
-	time = Time(tests, [&arr_copy] { arr_copy.quickSort(); });
-	printf("Sorted %d elements in: ", static_cast<int>(data_array.size()));
-	printTime(time);
-	compare_types["Quick Sort"] = time;
+	sortTestOne("Insertion Sort", &data_array, tests, &compare_types, [](Array<int> array){ array.insertionSort(); });
+	sortTestOne("Selection Sort", &data_array, tests, &compare_types, [](Array<int> array){ array.selectionSort(); });
+	sortTestOne("Bubble Sort", &data_array, tests, &compare_types, [](Array<int> array){ array.bubbleSort(); });
+	sortTestOne("Merge Sort", &data_array, tests, &compare_types, [](Array<int> array){ array.mergeSort(); });
+	sortTestOne("Quick Sort", &data_array, tests, &compare_types, [](Array<int> array){ array.quickSort(); });
 
 	printf("\n****[ Result ]****\n");
-	min_time = 0;
-	std::vector<std::pair<std::string, std::chrono::nanoseconds>> compare_types_vector;
-	compare_types_vector.reserve(compare_types.size());
-	for (std::pair<std::string, std::chrono::nanoseconds> el : compare_types)
-		compare_types_vector.emplace_back(el);
-	std::sort(compare_types_vector.begin(), compare_types_vector.end(), [](auto& left, auto& right) { return left.second < right.second; });
-	printf("Best time for %s with time: ", compare_types_vector[0].first.c_str());
-	printTime(compare_types_vector[0].second);
+	std::sort(compare_types.begin(), compare_types.end(), [](auto& left, auto& right) { return left.second < right.second; });
+	printf("Best time for %s with time: ", compare_types[0].first.c_str());	printTime(compare_types[0].second);
 }

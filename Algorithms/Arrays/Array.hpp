@@ -9,7 +9,7 @@ template<typename T>
 void Array<T>::reserve(size_t count) { data_array.reserve(count); }
 
 template<typename T>
-void Array<T>::emplace_back(int data) { data_array.emplace_back(data); }
+void Array<T>::emplace_back(T data) { data_array.emplace_back(data); }
 
 template<typename T>
 inline T Array<T>::operator[](size_t index) { return data_array[index]; }
@@ -65,4 +65,12 @@ void Array<T>::copyArray(Array<T> &original_array, const bool progress_bar) {
 	});
 	if (progress_bar) printf("Array Copied in ");
 	if (progress_bar) printTime(time);
+}
+
+template <typename T>
+void Array<T>::print(){
+	printf("[");
+	for(int el : data_array)
+		printf("%d, ", el);
+	printf("\b\b]");
 }
