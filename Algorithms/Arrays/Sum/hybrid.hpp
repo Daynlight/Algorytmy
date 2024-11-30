@@ -13,14 +13,14 @@ T Array<T>::halfThreadAndLineSumFun(const size_t x, const size_t y, size_t& thre
 	if (thread_level > 0) {
 		thread_level--;
 		std::future<T> eventA =
-			std::async(std::launch::async, [this, &x, &y, &thread_level] { return halfThreadSumReqFun(x, (y - x) / 2 + x, thread_level); });
+			std::async(std::launch::async, [this, &x, &y, &thread_level] { return halfThreadSumReqFun(x, (y + x) / 2, thread_level); });
 
-		b = halfThreadSumReqFun((y - x) / 2 + x + 1, y, thread_level);
+		b = halfThreadSumReqFun((y + x) / 2 + 1, y, thread_level);
 		a = eventA.get();
 	}
 	else {
-		a = lineSum(x, (y - x) / 2 + x);
-		b = lineSum((y - x) / 2 + x + 1, y - 1);
+		a = lineSum(x, (y + x) / 2);
+		b = lineSum((y + x) / 2 + 1, y);
 	}
 
 	return a + b;
