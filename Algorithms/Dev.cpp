@@ -1,5 +1,11 @@
 #include "Dev.h"
 
+void checkClock(){
+	printf("\n****[Checking Clock Accuracy]****\n");
+	printf("Clock test 100ms: ");
+	printTime(Time(10, [] { std::this_thread::sleep_for(std::chrono::milliseconds(100)); }));
+}
+
 ProgressBar::ProgressBar(const size_t last, const size_t size)
 	: last(last), size(size) {}
 
@@ -50,12 +56,19 @@ const std::chrono::nanoseconds Time(const std::function<void()> function) {
 	return delta;
 }
 
-void printTime(const std::chrono::nanoseconds delta) {
-	const std::chrono::seconds sec = std::chrono::duration_cast<std::chrono::seconds>(delta);
-	const std::chrono::milliseconds milisec = std::chrono::duration_cast<std::chrono::milliseconds>(delta);
-	const std::chrono::nanoseconds nansec = std::chrono::duration_cast<std::chrono::nanoseconds>(delta);
+const std::chrono::nanoseconds Time(size_t n, const std::function<void()> function) {
+	std::chrono::nanoseconds sum = std::chrono::nanoseconds(0);
+	for(size_t i = 0; i < n; i++)
+		sum += Time(function);
+	return sum/n;
+}
 
-	printf("%lld s | %lld ms | %lld ns\n", sec.count(), milisec.count(), nansec.count());
+void printTime(const std::chrono::nanoseconds delta) {
+	const std::chrono::seconds seconds = std::chrono::duration_cast<std::chrono::seconds>(delta);
+	const std::chrono::milliseconds miliseconds = std::chrono::duration_cast<std::chrono::milliseconds>(delta);
+	const std::chrono::nanoseconds nanoseconds = std::chrono::duration_cast<std::chrono::nanoseconds>(delta);
+
+	printf("%lld s | %lld ms | %lld ns\n", seconds.count(), miliseconds.count(), nanoseconds.count());
 }
 
 int random(const int x, const int y) {
