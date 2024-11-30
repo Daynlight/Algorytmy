@@ -98,3 +98,63 @@ void armstrongNumbersTest(int a, int b, int tests = 1){
 	printf("Armstrong Numbers generated in: ");
 	printTime(time);
 }
+
+void powTest(int a, int b, int tests = 1){
+	printf("\n###################################################################\n");
+	printf("######################### Pow #####################################\n");
+	printf("###################################################################\n\n");
+
+	int res = 0;
+	std::chrono::nanoseconds time = Time(tests, [&res, &a, &b]{ res = powNormal(a, b); });
+	printf("powNormal(%d, %d) = %d in: ", a, b, res);
+	printTime(time);
+
+	time = Time(tests, [&res, &a, &b]{ res = powRecursive(a, b); });
+	printf("powRecursive(%d, %d) = %d in: ", a, b, res);
+	printTime(time);
+}
+
+void nwdTests(int a, int b, int tests = 1){
+	printf("\n###################################################################\n");
+	printf("######################### Nwd #####################################\n");
+	printf("###################################################################\n\n");
+
+	int res = 0;
+	std::chrono::nanoseconds time = Time(tests, [&res, &a, &b]{ res = nwdNormal(a, b); });
+	printf("nwdNormal(%d, %d) = %d in: ", a, b, res);
+	printTime(time);
+
+	time = Time(tests, [&res, &a, &b]{ res = nwdRecursive(a, b); });
+	printf("nwdRecursive(%d, %d) = %d in: ", a, b, res);
+	printTime(time);
+}
+
+void factorialTests(int n, int tests = 1){
+	printf("\n###################################################################\n");
+	printf("######################### Factorial #####################################\n");
+	printf("###################################################################\n\n");
+
+	int res = 0;
+	std::chrono::nanoseconds time = Time(tests, [&res, &n]{ res = factorialNormal(n); });
+	printf("factorialNormal(%d) = %d in: ", n, res);
+	printTime(time);
+
+	time = Time(tests, [&res, &n]{ res = factorialRecursive(n); });
+	printf("factorialRecursive(%d) = %d in: ", n, res);
+	printTime(time);
+}
+
+void fibonacciTest(int n, int tests = 1){
+	printf("\n###################################################################\n");
+	printf("######################### Fibonacci #####################################\n");
+	printf("###################################################################\n\n");
+
+	int res = 0;
+	std::chrono::nanoseconds time = Time(tests, [&res, &n]{ res = fibonacciNormal(n); });
+	printf("fibonacciNormal(%d) = %d in: ", n, res);
+	printTime(time);
+
+	time = Time(tests, [&res, &n]{ res = fibonacciRecursive(n); });
+	printf("fibonacciRecursive(%d) = %d in: ", n, res);
+	printTime(time);
+}
