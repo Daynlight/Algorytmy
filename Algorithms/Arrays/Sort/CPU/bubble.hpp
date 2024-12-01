@@ -1,4 +1,4 @@
-#include "../Array.h"
+#include "../../Array.h"
 
 template<typename T>
 void Array<T>::bubbleSort(std::function<bool(T a, T b)> compare, bool progress_bar){

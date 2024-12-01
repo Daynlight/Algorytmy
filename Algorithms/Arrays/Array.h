@@ -31,11 +31,14 @@ public:
 	// Search
 	
 	// Sort
+	//CPU
 	void insertionSort(std::function<bool(T a, T b)> compare = [](T a, T b){ return a > b; } ,bool progress_bar = false);
 	void bubbleSort(std::function<bool(T a, T b)> compare = [](T a, T b){ return a > b; }, bool progress_bar = false);
 	void selectionSort(std::function<bool(T a, T b)> compare = [](T a, T b){ return a > b; }, bool progress_bar = false);
 	void mergeSort(std::function<bool(T a, T b)> compare = [](T a, T b){ return a > b; });
 	void quickSort(std::function<bool(T a, T b)> compare = [](T a, T b){ return a > b; });
+	//GPU
+	void selectionGsort(std::function<bool(T a, T b)> compare = [](T a, T b){ return a > b; });
 private:
 	// Sum
 	T halfThreadSumReqFun(const size_t x, const size_t y, size_t &thread_level);

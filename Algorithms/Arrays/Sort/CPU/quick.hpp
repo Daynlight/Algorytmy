@@ -1,4 +1,4 @@
-#include "../Array.h"
+#include "../../Array.h"
 
 template <typename T>
 int Array<T>::quickSortPartition(std::function<bool(T a, T b)> compare, int a, int b){

@@ -1,4 +1,4 @@
-#include "../Array.h"
+#include "../../Array.h"
 
 template <typename T>
 void Array<T>::mergeSortMerge(std::function<bool(T a, T b)> compare, int a, int q, int b){
