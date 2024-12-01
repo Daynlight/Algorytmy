@@ -1,4 +1,4 @@
-#include "Base.h"
+#include "../Base.h"
 
 int nwdRecursive(int a, int b){
 	a = abs(a);

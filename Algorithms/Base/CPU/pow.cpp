@@ -1,4 +1,4 @@
-#include "Base.h"
+#include "../Base.h"
 
 int powNormal(int a, int n){
 	int res = a;

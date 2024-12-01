@@ -1,5 +1,4 @@
-#include "Base.h"
-#include "../Dev.h"
+#include "../Base.h"
 
 struct PowTable {
   PowTable(unsigned long long n = 1){
