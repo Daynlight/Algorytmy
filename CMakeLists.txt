@@ -18,6 +18,14 @@ set(THREADS_PREFER_PTHREAD_FLAG ON)
 find_package(Threads REQUIRED)
 target_link_libraries(Algorithms PRIVATE Threads::Threads)
 
+find_package(OpenCL REQUIRED)
+if(${OPENCL_FOUND})
+  target_include_directories(Algorithms PRIVATE ${OpenCL_INCLUDE_DIRS})
+  target_link_libraries(Algorithms PRIVATE ${OpenCL_LIBRARIES})
+else()
+ message(FATAL_ERROR "OpenCL not found. Please install OpenCL libraries and headers.")
+endif()
+
 set(THREADS_PREFER_PTHREAD_FLAG ON)
 
 file(GLOB_RECURSE REMOVE_CMAKE "cmake-build-debug/*")
