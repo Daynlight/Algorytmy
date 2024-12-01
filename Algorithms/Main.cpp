@@ -19,7 +19,7 @@ int main(int args, const char *argv[]) {
 	Array<int> arr;
 	GPU gpu;
 	arr.createRandom(50, 0, 200);
-	arr.selectionSort(gpu);
+	arr.bubbleSort();
 	arr.print();
 
 	return 0;
