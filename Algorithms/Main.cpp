@@ -6,8 +6,8 @@
 void checkClock();
 
 int main(int args, const char *argv[]) {
+	
 	checkClock();
-
 	armstrongNumbersTest(100, 999999);
 	powTest(25, 30);
 	nwdTests(25, 5);
