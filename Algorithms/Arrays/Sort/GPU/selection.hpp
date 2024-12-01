@@ -1,8 +1,7 @@
 #include "../../Array.h"
-#include <cl/opencl.h>
 
 template <typename T>
-void Array<T>::selectionGsort(std::function<bool(T a, T b)> compare){
+void Array<T>::selectionSort(GPU gpu, std::function<bool(T a, T b)> compare){
   for(int i = 0; i < data_array.size() - 1; i++){
     int x = i;
 

@@ -17,8 +17,9 @@ int main(int args, const char *argv[]) {
 	// sortTest(9999, -200000, 200000);
 
 	Array<int> arr;
+	GPU gpu;
 	arr.createRandom(50, 0, 200);
-	arr.selectionGsort();
+	arr.selectionSort(gpu);
 	arr.print();
 
 	return 0;
